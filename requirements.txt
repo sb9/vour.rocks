@@ -1,0 +1,16 @@
+Cactus==3.3.3
+Django==1.6.11
+argparse==1.4.0
+backports-abc==0.5
+backports.ssl-match-hostname==3.5.0.1
+boto==2.46.1
+certifi==2017.01.23
+colorama==0.3.7
+colorlog==2.10.0
+django-markwhat==1.5.1
+keyring==5.7.1
+markdown2==2.3.3
+singledispatch==3.4.0.3
+six==1.10.0
+tornado==4.4.2
+wsgiref==0.1.2

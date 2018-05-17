@@ -1,0 +1,31 @@
+.vour-gallery {
+	width: 90%;
+	margin: 5px auto;
+	overflow: hidden;
+	float: left;
+}
+
+.vour-gallery-item {
+	color: #797478;
+	font: 10px/1.5 Verdana, Helvetica, sans-serif;
+	float: left;
+  width: 18%;
+	margin:  1% 1% 1% 1%;
+}
+
+.vour-gallery-item:hover {
+  border: 1px solid #777;
+	border-radius: 5px;
+}
+
+.vour-gallery-item h3 {
+	text-transform: uppercase;
+}
+
+.vour-gallery-item img {
+	max-width: 100%;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+}
