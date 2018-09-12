@@ -276,6 +276,10 @@ a:focus {
     -o-background-size: cover;
 }
 
+#band-lineup {
+  padding-top: 60;
+}
+
 #map {
     width: 100%;
     height: 200px;
