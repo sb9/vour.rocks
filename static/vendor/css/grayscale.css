@@ -380,7 +380,7 @@ footer p {
 }
 
 #vour_heading {
-    /* opacity: 0; */
+    opacity: 0;
     -webkit-animation: fadein 1s;
     /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 1s;
@@ -389,7 +389,7 @@ footer p {
     /* Internet Explorer */
     -o-animation: fadein 1s;
     /* Opera < 12.1 */
-    animation: pulse 1s;
+    animation: fadein 1s;
     animation-delay: 2s;
     animation-fill-mode: forwards;
 }
