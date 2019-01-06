@@ -230,6 +230,21 @@ a:focus {
     -moz-animation-timing-function: linear;
 }
 
+@keyframes pulse {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
 @-webkit-keyframes pulse {
     0% {
         -webkit-transform: scale(1);
@@ -365,7 +380,7 @@ footer p {
 }
 
 #vour_heading {
-    opacity: 0;
+    /* opacity: 0; */
     -webkit-animation: fadein 1s;
     /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 1s;
@@ -374,7 +389,7 @@ footer p {
     /* Internet Explorer */
     -o-animation: fadein 1s;
     /* Opera < 12.1 */
-    animation: fadein 1s;
+    animation: pulse 1s;
     animation-delay: 2s;
     animation-fill-mode: forwards;
 }
