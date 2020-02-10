@@ -324,6 +324,15 @@ a:focus {
     border-radius: 0;
 }
 
+.btn-streaming {
+    width: 200px;
+}
+
+.img-streaming {
+    width: 100%;
+    height: auto;
+}
+
 .btn-default {
     border: 1px solid #42DCA3;
     color: #42DCA3;
