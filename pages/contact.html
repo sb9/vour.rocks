@@ -1,18 +1,6 @@
 {% extends "base.html" %}
 
 {% block body %}
-<!-- Facebook JavaScript SDK -->
-<div id="fb-root"></div>
-<script>
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.9";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
 
 <!-- Contact Section -->
 <section id="contact" class="container content-section text-center">
@@ -28,9 +16,6 @@
               </li>
                 <li>
                     <a target='_blank' href="https://www.facebook.com/vour.rock/" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
-                </li>
-                <li>
-                    <div class="fb-like" data-href="http://vour.rocks" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
                 </li>
             </ul>
         </div>
