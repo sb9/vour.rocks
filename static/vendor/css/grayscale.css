@@ -339,6 +339,12 @@ a:focus {
     height: auto;
 }
 
+.img-logo {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
 .btn-default {
     border: 1px solid #42DCA3;
     color: #42DCA3;
