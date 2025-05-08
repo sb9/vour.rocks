@@ -164,6 +164,17 @@ a:focus {
     -o-background-size: cover;
 }
 
+@media screen and (orientation: portrait) {
+    .intro {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url('/static/images/intro_portrait_bw.jpg');
+        height: 100vh;
+
+    }
+}
+
 .intro .intro-body {
     display: table-cell;
     vertical-align: middle;
@@ -494,4 +505,48 @@ img::-moz-selection {
 
 body {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Anpassung für Hochformat */
+/* @media screen and (orientation: portrait) {
+    .carousel-inner .item img {
+      width: auto;
+      height: 100vh;
+      object-fit: contain;
+      object-position: center center;
+    }
+  }
+*/
+.img-landscape,
+.img-portrait {
+/*    position: absolute;
+    top: 0; left: 0; */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+
+  /* Querformat: nur landscape zeigen */
+@media screen and (orientation: landscape) {
+    .img-landscape { 
+        display: block; 
+        max-width: 100%;
+        height: auto;
+    }
+    .img-portrait {
+        display: none !important;
+    }
+}
+  
+/* Hochformat: nur portrait zeigen */
+@media screen and (orientation: portrait) {
+    .img-portrait { 
+        display: block; 
+        object-fit: cover; 
+        height: 100vh !important
+    }
+    .img-landscape {
+        display: none !important;
+    }
 }
