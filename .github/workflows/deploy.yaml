@@ -16,13 +16,11 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    # Wir wechseln auf Python 3.9 (kompatibel mit Cactus UND Ubuntu 24.04)
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.9'
 
-    # Wir installieren Cactus
     - name: Install Cactus
       run: |
         python -m pip install --upgrade pip
@@ -32,14 +30,20 @@ jobs:
       run: |
         cactus build
 
+    # DIESER SCHRITT HILFT UNS BEIM SUCHEN: Er listet alle Ordner nach dem Build auf
+    - name: List files after build
+      run: ls -la
+
+    # Wir nutzen hier eine reine SFTP-Action (ohne FTP-Verwirrung)
     - name: SFTP Deploy to Webhost
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
-        server: ${{ secrets.SFTP_SERVER }}
         username: ${{ secrets.SFTP_USERNAME }}
         password: ${{ secrets.SFTP_PASSWORD }}
-        local-dir: ./build/
-        server-dir: ${{ secrets.SFTP_REMOTE_DIR }}
-        # So aktiviert man SFTP bei dieser speziellen Action richtig:
-        sftp: true
+        server: ${{ secrets.SFTP_SERVER }}
         port: 22
+        # Falls der Ordner anders heißt, passen wir das nach dem nächsten Run an:
+        local_path: './build/*'
+        remote_path: ${{ secrets.SFTP_REMOTE_DIR }}
+        # Verhindert Fehler bei unbekannten SSH-Schlüsseln des Hoster-Servers
+        sftp_only: true
