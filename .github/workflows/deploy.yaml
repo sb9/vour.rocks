@@ -34,16 +34,17 @@ jobs:
       run: |
         cactus build
 
-    # 5. Die generierten Dateien per SFTP auf den Webhost hochladen
+# 5. Die generierten Dateien per SFTP auf den Webhost hochladen
     - name: SFTP Deploy to Webhost
-      uses: lbgm/sftp-deploy-action@v1.2.2
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.SFTP_SERVER }}
         username: ${{ secrets.SFTP_USERNAME }}
         password: ${{ secrets.SFTP_PASSWORD }}
-        # Lokaler Ordner, den Cactus erstellt hat (Standard ist meist 'build')
-        local_dir: './build' 
+        # Lokaler Ordner, den Cactus erstellt hat
+        local-dir: ./build/
         # Zielordner auf deinem Webspace
-        remote_dir: ${{ secrets.SFTP_REMOTE_DIR }}
-        # Verhindert, dass die Pipeline fehlschlägt, falls der Server ein unbekanntes SSL-Zertifikat meldet
-        unsafe: true
+        server-dir: ${{ secrets.SFTP_REMOTE_DIR }}
+        # Da es sich um SFTP (Port 22) und nicht normales FTP handelt:
+        protocol: sftp
+        port: 22
