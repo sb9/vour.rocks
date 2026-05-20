@@ -40,5 +40,6 @@ jobs:
         password: ${{ secrets.SFTP_PASSWORD }}
         local-dir: ./build/
         server-dir: ${{ secrets.SFTP_REMOTE_DIR }}
-        protocol: sftp
+        # So aktiviert man SFTP bei dieser speziellen Action richtig:
+        sftp: true
         port: 22
