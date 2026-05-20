@@ -5,38 +5,34 @@ on:
     branches:
       - master
 
-# Hier beheben wir die Node 20 Warnung global für die ganze Pipeline
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 jobs:
   build-and-deploy:
-    # Wichtig: Wir wechseln auf Ubuntu 20.04, damit Python 3.6.8 installiert werden kann
-    runs-on: ubuntu-20.04
+    # Zurück auf das aktuelle, schnelle Ubuntu!
+    runs-on: ubuntu-latest
 
     steps:
-    # 1. Code auschecken
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    # 2. Altes Python 3.6.8 bereitstellen
+    # Wir installieren ein stabiles, modernes Python, auf dem neuere Server sofort anspringen
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.6.8'
+        python-version: '3.10'
 
-    # 3. Cactus installieren
+    # Wir installieren Cactus. Falls es meckert, nutzen wir den --break-system-packages oder pipx Weg.
     - name: Install Cactus
       run: |
         python -m pip install --upgrade pip
         pip install cactus
 
-    # 4. Die statische Seite mit Cactus generieren
     - name: Build Website
       run: |
         cactus build
 
-    # 5. Die generierten Dateien per SFTP auf den Webhost hochladen
     - name: SFTP Deploy to Webhost
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
