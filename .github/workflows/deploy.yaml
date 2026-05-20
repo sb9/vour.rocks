@@ -43,7 +43,7 @@ jobs:
         server: ${{ secrets.SFTP_SERVER }}
         port: 22
         # Falls der Ordner anders heißt, passen wir das nach dem nächsten Run an:
-        local_path: './build/*'
+        local_path: './.build/*'
         remote_path: ${{ secrets.SFTP_REMOTE_DIR }}
         # Verhindert Fehler bei unbekannten SSH-Schlüsseln des Hoster-Servers
         sftp_only: true
