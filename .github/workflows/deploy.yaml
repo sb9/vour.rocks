@@ -30,10 +30,6 @@ jobs:
       run: |
         cactus build
 
-    - name: Generate audio manifest
-      run: |
-        python scripts/generate_audio_manifest.py
-
     # DIESER SCHRITT HILFT UNS BEIM SUCHEN: Er listet alle Ordner nach dem Build auf
     - name: List files after build
       run: ls -la
