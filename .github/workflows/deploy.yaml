@@ -10,7 +10,7 @@ env:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout Code
@@ -29,6 +29,10 @@ jobs:
     - name: Build Website
       run: |
         cactus build
+
+    - name: Generate audio manifest
+      run: |
+        python scripts/generate_audio_manifest.py
 
     # DIESER SCHRITT HILFT UNS BEIM SUCHEN: Er listet alle Ordner nach dem Build auf
     - name: List files after build
