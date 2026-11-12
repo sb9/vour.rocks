@@ -1,5 +1,73 @@
 {% extends "base.html" %}
 
+{% block extra_css %}
+<style>
+    .cancellation-banner {
+        position: fixed;
+        z-index: 20;
+        right: 16px;
+        bottom: 24px;
+        left: 16px;
+        width: min(560px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 18px 22px;
+        border: 1px solid rgba(255, 75, 75, 0.8);
+        border-left: 5px solid #e34b4b;
+        background: rgba(0, 0, 0, 0.88);
+        box-shadow: 0 0 20px rgba(227, 75, 75, 0.25);
+        text-align: left;
+        animation: cancellation-glow 3s ease-in-out infinite;
+    }
+
+    .cancellation-banner h2 {
+        margin: 0 0 8px;
+        color: #ff7777;
+        font-size: 18px;
+        letter-spacing: 0.5px;
+    }
+
+    .cancellation-banner p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .cancellation-banner a {
+        display: inline-block;
+        margin-top: 8px;
+        font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    @keyframes cancellation-glow {
+        0%, 100% { box-shadow: 0 0 14px rgba(227, 75, 75, 0.18); }
+        50% { box-shadow: 0 0 24px rgba(227, 75, 75, 0.4); }
+    }
+
+    @media (max-width: 480px) {
+        .cancellation-banner {
+            right: 12px;
+            bottom: 12px;
+            left: 12px;
+            width: calc(100% - 24px);
+            padding: 15px 16px;
+        }
+
+        .cancellation-banner h2 {
+            font-size: 16px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .cancellation-banner {
+            animation: none;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block body %}
 <header class="intro animsition">
     <div class="intro-body">
@@ -16,5 +84,33 @@
             </div>
         </div>
     </div>
+    <aside class="cancellation-banner" aria-label="Wichtiger Hinweis zum Konzert am 14. November 2026">
+        <h2>14.11.2026 · LOK Freimann: VOUR sagt ab</h2>
+        <p>Wir müssen unseren Auftritt leider krankheitsbedingt absagen.
+           <br>Das erste Mail in 12 Jahren Bandgeschichte!
+           <br>Die Veranstaltung findet trotzdem statt – Bunnyhill Overkill spielt an unserer Stelle.</p>
+        <a href="live.html#live">Alle Infos auf der Live-Seite <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    </aside>
 </header>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    (function () {
+        var banner = document.querySelector('.cancellation-banner');
+        if (!banner) {
+            return;
+        }
+
+        var hideAfter = new Date('2026-11-15T00:00:00+01:00').getTime();
+        var remaining = hideAfter - Date.now();
+        if (remaining <= 0) {
+            banner.hidden = true;
+        } else {
+            window.setTimeout(function () {
+                banner.hidden = true;
+            }, remaining);
+        }
+    })();
+</script>
 {% endblock %}
