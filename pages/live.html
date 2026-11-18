@@ -11,7 +11,21 @@
                     <tbody>
                         
                         <tr>
-                            <td><b>14.01.2027</b></td>
+                            <td>
+                              <b>14.01.2027</b>
+                              <div class="calendar-button dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="calendar-next-gig" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Zum Kalender
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="calendar-next-gig">
+                                  <li><a id="calendar-google" target="_blank" rel="noopener" href="#"><i class="fab fa-google" aria-hidden="true"></i> Google Kalender</a></li>
+                                  <li><a id="calendar-outlook" target="_blank" rel="noopener" href="#"><i class="fab fa-microsoft" aria-hidden="true"></i> Outlook</a></li>
+                                  <li><a id="calendar-apple" href="#"><i class="fab fa-apple" aria-hidden="true"></i> Apple Kalender</a></li>
+                                  <li role="separator" class="divider"></li>
+                                  <li><a id="calendar-ics" href="#"><i class="fa fa-download" aria-hidden="true"></i> Kalenderdatei (.ics)</a></li>
+                                </ul>
+                              </div>
+                            </td>
                             <td><a target='_blank' href='https://www.stadthalle-germering.de/veranstaltungen/nachtlinie/'><b>Stadthalle Germering</b></a>, <a target='_blank' href='https://maps.app.goo.gl/B8Qe2dx9CqjaBVLU8'>Landsberger Str. 39, 82110 Germering-Unterpfaffenhofen</a>
                               <br>mit <a target='_blank' href='https://www.c0unted.de/'><b>c0unted</b></a>
                               und <a target='_blank' href='https://20yearshortbreak.com/'><b>20 Year Short Break</b></a>
@@ -413,4 +427,92 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function () {
+    var calendarButton = document.querySelector('.calendar-button');
+    if (calendarButton) {
+        var hideAfter = new Date('2027-01-15T00:00:00+01:00').getTime();
+
+        function hideExpiredCalendarButton() {
+            var remaining = hideAfter - Date.now();
+            if (remaining <= 0) {
+                calendarButton.hidden = true;
+                return;
+            }
+
+            window.setTimeout(hideExpiredCalendarButton, Math.min(remaining, 24 * 60 * 60 * 1000));
+        }
+
+        hideExpiredCalendarButton();
+    }
+
+    var eventTitle = 'VOUR - Nachtlinie';
+    var eventDescription = 'VOUR live in der Stadthalle Germering mit c0unted und 20 Year Short Break';
+    var eventLocation = 'Stadthalle Germering, Landsberger Str. 39, 82110 Germering-Unterpfaffenhofen';
+    var eventUrl = 'https://vour.rocks/live.html';
+    var startUtc = '2027-01-14T18:30:00Z';
+    var endUtc = '2027-01-14T22:30:00Z';
+
+    var googleUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+        + '&text=' + encodeURIComponent(eventTitle)
+        + '&dates=20270114T183000Z%2F20270114T223000Z'
+        + '&details=' + encodeURIComponent(eventDescription + '\nWeitere Infos: ' + eventUrl)
+        + '&location=' + encodeURIComponent(eventLocation)
+        + '&ctz=Europe%2FBerlin';
+
+    var outlookUrl = 'https://outlook.live.com/calendar/0/deeplink/compose'
+        + '?subject=' + encodeURIComponent(eventTitle)
+        + '&startdt=' + encodeURIComponent(startUtc)
+        + '&enddt=' + encodeURIComponent(endUtc)
+        + '&body=' + encodeURIComponent(eventDescription + '\nWeitere Infos: ' + eventUrl)
+        + '&location=' + encodeURIComponent(eventLocation);
+
+    function escapeIcs(value) {
+        return value
+            .replace(/\\/g, '\\\\')
+            .replace(/\n/g, '\\n')
+            .replace(/,/g, '\\,')
+            .replace(/;/g, '\\;');
+    }
+
+    function createIcs() {
+        var now = new Date();
+        var timestamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+        var ics = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//VOUR//Konzertkalender//DE',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+            'BEGIN:VEVENT',
+            'UID:20270114-vour-nachtlinie@vour.rocks',
+            'DTSTAMP:' + timestamp,
+            'DTSTART;TZID=Europe/Berlin:20270114T193000',
+            'DTEND;TZID=Europe/Berlin:20270114T233000',
+            'SUMMARY:' + escapeIcs(eventTitle),
+            'DESCRIPTION:' + escapeIcs(eventDescription + '\nWeitere Infos: ' + eventUrl),
+            'LOCATION:' + escapeIcs(eventLocation),
+            'URL:' + eventUrl,
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ].join('\r\n') + '\r\n';
+
+        return new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+    }
+
+    document.getElementById('calendar-google').href = googleUrl;
+    document.getElementById('calendar-outlook').href = outlookUrl;
+
+    var appleLink = document.getElementById('calendar-apple');
+    var icsLink = document.getElementById('calendar-ics');
+    var downloadUrl = URL.createObjectURL(createIcs());
+    appleLink.href = downloadUrl;
+    appleLink.download = 'vour-nachtlinie-2027-01-14.ics';
+    icsLink.href = downloadUrl;
+    icsLink.download = 'vour-nachtlinie-2027-01-14.ics';
+}());
+</script>
 {% endblock %}

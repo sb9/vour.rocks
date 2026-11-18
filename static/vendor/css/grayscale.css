@@ -370,6 +370,31 @@ a:focus {
     background-color: #42DCA3;
 }
 
+.calendar-button {
+    margin-top: 10px;
+}
+
+.calendar-button .btn {
+    padding: 6px 10px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.calendar-button .dropdown-menu {
+    text-align: left;
+}
+
+.calendar-button .dropdown-menu > li > a {
+    color: #333;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.calendar-button .dropdown-menu > li > a:hover,
+.calendar-button .dropdown-menu > li > a:focus {
+    color: #fff;
+    background-color: #42DCA3;
+}
+
 ul.banner-social-buttons {
     margin-top: 0;
 }
