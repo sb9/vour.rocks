@@ -4,6 +4,7 @@
 <style>
     .gig-banner {
         position: fixed;
+        display: block;
         z-index: 1100;
         right: 16px;
         bottom: 24px;
@@ -12,10 +13,23 @@
         max-width: 560px;
         margin: 0 auto;
         padding: 18px 22px;
+        color: white;
         background: transparent;
         box-shadow: 0 0 20px rgba(66, 220, 163, 0.18);
         text-align: left;
+        text-decoration: none;
         animation: gig-banner-sequence 1.4s ease-out 4s both;
+    }
+
+    .gig-banner:hover,
+    .gig-banner:focus {
+        color: white;
+        text-decoration: none;
+    }
+
+    .gig-banner:focus-visible {
+        outline: 2px solid #42DCA3;
+        outline-offset: 5px;
     }
 
     .gig-banner::before,
@@ -66,7 +80,7 @@
         line-height: 1.5;
     }
 
-    .gig-banner a {
+    .gig-banner-cta {
         position: relative;
         z-index: 1;
         display: inline-block;
@@ -159,10 +173,10 @@
         </div>
     </div>
 </header>
-<aside class="gig-banner" aria-label="Nächster Gig von VOUR am 14. Januar 2027 in der Stadthalle Germering">
+<a class="gig-banner" href="live.html#live" aria-label="Alle Infos zum nächsten Gig von VOUR am 14. Januar 2027 in der Stadthalle Germering">
     <h2>Nächster Gig · 14.01.2027</h2>
     <p><strong>Nachtlinie</strong> in der Stadthalle Germering
        <br>mit cOunted und 20 Year Short Break</p>
-    <a href="live.html#live">Alle Infos auf der Live-Seite <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-</aside>
+    <span class="gig-banner-cta">Alle Infos auf der Live-Seite <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+</a>
 {% endblock %}
